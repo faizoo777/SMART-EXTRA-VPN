@@ -1,0 +1,78 @@
+SmartExtraVPN/
+│
+├── app/
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/com/smartextravpn/
+│   │   │   │   ├── MainActivity.java
+│   │   │   │   ├── VPNService.java
+│   │   │   │   ├── ServerListAdapter.java
+│   │   │   │   └── Utils.java
+│   │   │   ├── res/
+│   │   │   │   ├── layout/
+│   │   │   │   │   ├── activity_main.xml
+│   │   │   │   │   └── server_item.xml
+│   │   │   │   └── drawable/
+│   │   │   └── AndroidManifest.xml
+│   └── build.gradle
+├── build.gradle
+└── proguard-rules.pro
+package com.smartextravpn;
+
+import android.os.Bundle;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+import com.example.smartextravpn.databinding.ActivityMainBinding;
+
+public class MainActivity extends AppCompatActivity {
+
+    private ActivityMainBinding binding;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        binding.connectBtn.setOnClickListener(v -> {
+            Toast.makeText(this, "Connecting to SMART EXTRA VPN...", Toast.LENGTH_SHORT).show();
+            // TODO: Add OpenVPN/WireGuard integration
+        });
+
+        loadServerList();
+    }
+
+    private void loadServerList() {
+        String[] countries = {"Pakistan", "Russia", "India", "UAE", "UK", "USA", "Saudi Arabia", "Germany"};
+        // Display in UI (RecyclerView or Spinner)
+    }
+}
+Intent vpnIntent = new Intent("de.blinkt.openvpn.CONNECT");
+vpnIntent.setPackage("de.blinkt.openvpn");
+vpnIntent.putExtra("de.blinkt.openvpn.VPNProfileName", "USA_Server");
+startActivity(vpnIntent);
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+<application
+    android:label="SMART EXTRA VPN"
+    android:icon="@drawable/ic_launcher">
+    <activity android:name=".MainActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
+            <category android:name="android.intent.category.LAUNCHER"/>
+        </intent-filter>
+    </activity>
+</application>
+android {
+    compileSdkVersion 33
+    defaultConfig {
+        applicationId "com.smartextravpn"
+        minSdkVersion 21
+        targetSdkVersion 33
+        versionCode 107
+        versionName "10.7"
+    }
+}

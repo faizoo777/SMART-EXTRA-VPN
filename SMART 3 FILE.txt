@@ -1,0 +1,10 @@
+android {
+    compileSdkVersion 33
+    defaultConfig {
+        applicationId "com.smartextravpn"
+        minSdkVersion 21
+        targetSdkVersion 33
+        versionCode 107
+        versionName "10.7"
+    }
+}
